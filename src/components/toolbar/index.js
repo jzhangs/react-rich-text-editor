@@ -1,6 +1,5 @@
 import SideToolbar from './SideToolbar';
+import InlineToolbar from './InlineToolbar';
 import './index.scss';
 
-// export { SideToolbar };
-
-export default SideToolbar;
+export { SideToolbar, InlineToolbar };

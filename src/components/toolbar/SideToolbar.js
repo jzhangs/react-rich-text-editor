@@ -2,11 +2,11 @@ import React from 'react';
 import ToolbarItem from './ToolbarItem';
 
 const BLOCK_TYPES = [
-  { label: 'H1', style: 'header-one' },
-  { label: 'H2', style: 'header-two' },
-  { icon: 'list-unordered', style: 'unordered-list-item' },
-  { icon: 'list-ordered', style: 'ordered-list-item' },
-  { icon: 'quotes-left', style: 'blockquote' }
+  { label: 'H1', type: 'header-one' },
+  { label: 'H2', type: 'header-two' },
+  { icon: 'list-unordered', type: 'unordered-list-item' },
+  { icon: 'list-ordered', type: 'ordered-list-item' },
+  { icon: 'quotes-left', type: 'blockquote' }
 ];
 
 const SideToolbarExtras = ({ editorState, onToggle }) => {
@@ -19,11 +19,11 @@ const SideToolbarExtras = ({ editorState, onToggle }) => {
   return (
     <div className="toolbar side">
       <ul className="toolbar-icons" />
-      {BLOCK_TYPES.map(type => (
+      {BLOCK_TYPES.map(block => (
         <ToolbarItem
-          key={type.label || type.icon}
-          active={type.style === blockType}
-          {...type}
+          key={block.label || block.icon}
+          active={block.style === blockType}
+          {...block}
           onToggle={onToggle}
         />
       ))}
@@ -43,7 +43,7 @@ class SideToolbar extends React.Component {
 
   // onMouseDown = (e) =
 
-  onMouseLeave = () => this.setState({ expanded: false });
+  onMouseLeave = () => this.setState({ expanded: true });
 
   render() {
     const { expanded } = this.state;

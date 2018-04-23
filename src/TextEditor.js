@@ -1,6 +1,6 @@
 import React from 'react';
 import { Editor, EditorState, RichUtils } from 'draft-js';
-import SideToolbar from './components/toolbar';
+import { SideToolbar, InlineToolbar } from './components/toolbar';
 
 import './index.scss';
 
@@ -8,7 +8,8 @@ class TextEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      editorState: EditorState.createEmpty()
+      editorState: EditorState.createEmpty(),
+      inlineToolbar: { show: false }
     };
   }
 
@@ -16,11 +17,27 @@ class TextEditor extends React.Component {
     // this.editor.focus();
   }
 
-  onChange = editorState => this.setState({ editorState });
+  onChange = (editorState) => {
+    if (!editorState.getSelection().isCollapsed()) {
+      this.setState({
+        inlineToolbar: {
+          show: true
+        }
+      });
+    } else {
+      this.setState({
+        inlineToolbar: { show: false }
+      });
+    }
+
+    this.setState({ editorState });
+  };
 
   editorRef = (ref) => {
     this.editor = ref;
   };
+
+  focus = () => this.editor.focus();
 
   handleKeyCommand = (command) => {
     const { editorState } = this.state;
@@ -30,15 +47,36 @@ class TextEditor extends React.Component {
       return true;
     }
     return false;
-  }
+  };
+
+  toggleBlockType = (type) => {
+    this.onChange(RichUtils.toggleBlockType(this.state.editorState, type));
+  };
+
+  toggleInlineStyle = (style) => {
+    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, style));
+  };
 
   render() {
-    const { editorState } = this.state;
+    const { editorState, inlineToolbar } = this.state;
+
+    const sideToolBarOffsetTop = 0;
     return (
-      <div>
-        <SideToolbar editorState={editorState} />
+      <div className="editor" onClick={this.focus}>
+        <SideToolbar
+          editorState={editorState}
+          style={{ top: sideToolBarOffsetTop }}
+          onToggle={this.toggleBlockType}
+        />
+
+        {
+          inlineToolbar.show
+          ? <InlineToolbar editorState={editorState} onToggle={this.toggleInlineStyle} />
+          : null
+        }
         <Editor
           ref={this.editorRef}
+          placeholder="Write something"
           editorState={editorState}
           onChange={this.onChange}
           handleKeyCommand={this.handleKeyCommand}
