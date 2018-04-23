@@ -5,7 +5,7 @@ export default ({
   label, icon, active, onToggle, type
 }) => {
   const className = classNames({
-    'ant-editor-toolbar-icon': true,
+    'toolbar-icon': true,
     active
   });
 

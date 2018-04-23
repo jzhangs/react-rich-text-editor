@@ -76,7 +76,6 @@ class TextEditor extends React.Component {
         }
         <Editor
           ref={this.editorRef}
-          placeholder="Write something"
           editorState={editorState}
           onChange={this.onChange}
           handleKeyCommand={this.handleKeyCommand}

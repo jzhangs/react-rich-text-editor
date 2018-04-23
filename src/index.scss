@@ -1,7 +1,11 @@
+@import './draft.css';
+
 .editor {
   display: flex;
+  margin: 50px 10px 10px 70px;
 }
 
 .DraftEditor-root {
   flex-grow: 1;
+  border: 1px solid #aaa;
 }

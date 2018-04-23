@@ -18,15 +18,16 @@ const SideToolbarExtras = ({ editorState, onToggle }) => {
 
   return (
     <div className="toolbar side">
-      <ul className="toolbar-icons" />
-      {BLOCK_TYPES.map(block => (
-        <ToolbarItem
-          key={block.label || block.icon}
-          active={block.style === blockType}
-          {...block}
-          onToggle={onToggle}
-        />
-      ))}
+      <ul className="toolbar-icons">
+        {BLOCK_TYPES.map(block => (
+          <ToolbarItem
+            key={block.label || block.icon}
+            active={block.type === blockType}
+            {...block}
+            onToggle={onToggle}
+          />
+        ))}
+      </ul>
     </div>
   );
 };
@@ -43,7 +44,7 @@ class SideToolbar extends React.Component {
 
   // onMouseDown = (e) =
 
-  onMouseLeave = () => this.setState({ expanded: true });
+  onMouseLeave = () => this.setState({ expanded: false });
 
   render() {
     const { expanded } = this.state;
