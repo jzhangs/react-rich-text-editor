@@ -13,6 +13,21 @@ module.exports = {
         test: /\.jsx?/,
         exclude: /node_modules/,
         use: ['babel-loader']
+      }, {
+        test: /\.s?css/,
+        exclude: /node_modules/,
+        use: ['style-loader', 'css-loader', 'sass-loader']
+      }, {
+        test: /\.(ttf|png|svg)/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+              name: '[name]_[hash:6].[.ext]'
+            }
+          }
+        ]
       }
     ]
   },
